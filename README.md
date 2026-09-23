@@ -5,7 +5,7 @@ Tämä versio toimii kokonaan selaimessa. Ei omaa palvelinta, Node-asennusta puh
 ## GitHub Pages käyttöön
 
 1. Pura **Ajolista-GitHub-Pages.zip** tietokoneella.
-2. Lataa ZIP:n **sisältö** repositorion `Temppa82/Tunnit` juureen: `index.html`, `assets`-kansio, `sw.js`, manifesti ja kuvakkeet. Korvaa vanha `index.html` tällä uudella. ZIP-tiedoston lataaminen sellaisenaan ei riitä.
+2. Lataa ZIP:n **kaikki tiedostot** repositorion `Temppa82/Tunnit` juureen. Tässä paketissa ei ole alikansioita. Korvaa samannimiset tiedostot, myös `index.html` ja `sw.js`. ZIP-tiedoston lataaminen sellaisenaan ei riitä.
 3. GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**.
 4. Valitse **main** ja **/(root)**, sitten **Save**.
 5. Odota julkaisua. Osoite on **https://temppa82.github.io/Tunnit/**, kun julkaisu valmistuu. Jos käytät muuta repositorion nimeä, osoitteen loppu vaihtuu.
