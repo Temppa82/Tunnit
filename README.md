@@ -1,6 +1,6 @@
 # Tunnit ja Pamark – puhelimessa toimiva sovellus
 
-Tämä versio toimii kokonaan selaimessa. Ei omaa palvelinta, Node-asennusta puhelimeen, maksullista julkaisupalvelua eikä sovelluksen käyttäjätilejä. GitHub Pages jakaa vain sovelluksen tiedostot. Kaikki kirjaukset, listapohjat ja XLSX-tiedostot tallennetaan ensin puhelimen selaimen paikalliseen muistiin (IndexedDB).
+Tämä versio toimii kokonaan selaimessa. Ei omaa palvelinta, Node-asennusta puhelimeen, maksullista julkaisupalvelua eikä sovelluksen käyttäjätilejä. GitHub Pages jakaa vain sovelluksen tiedostot. Aloituksessa valitaan nimi ja molemmille listoille yhteinen tallennuspaikka. Tuetussa selaimessa valitaan paikallinen kansio; muissa valitaan sovelluksen paikallinen muisti. IndexedDB säilyttää lisäksi luonnokset ja työkopiot.
 
 ## GitHub Pages käyttöön
 
@@ -19,18 +19,31 @@ Avaa Pages-osoite ensin verkkoyhteydessä ja odota tekstiä **Valmis offline-kä
 - Android / Chrome: selaimen valikko → **Asenna sovellus** tai **Lisää aloitusnäyttöön**.
 - iPhone / Safari: Jaa → **Lisää Koti-valikkoon**.
 
-Avaa asennettu sovellus kerran verkossa myös sen omasta kuvakkeesta ja tarkista offline-ilmoitus. Valitse listapohjat ja aloita käyttö siellä. Selaimen ja asennetun sovelluksen muistia ei kaikissa puhelimissa jaeta. Tämän jälkeen kirjaukset ja tiedostojen muodostaminen toimivat ilman nettiä. Vain Drive-kirjautuminen ja synkronointi tarvitsevat verkon. ZIP:n index.html:n avaaminen suoraan Tiedostot-sovelluksesta ei asenna PWA:ta.
+Avaa asennettu sovellus kerran verkossa myös sen omasta kuvakkeesta ja tarkista offline-ilmoitus. Tämän jälkeen kirjaukset ja tiedostojen muodostaminen toimivat ilman nettiä. Vain Drive-kirjautuminen ja synkronointi tarvitsevat verkon. ZIP:n index.html:n avaaminen suoraan Tiedostot-sovelluksesta ei asenna PWA:ta.
+
+## Ensimmäinen käynnistys
+
+Kirjoita kuljettajan etu- ja sukunimi sekä valitse tallennuspaikka:
+
+- Tuettu selain (esim. Chrome Androidilla): **Valitse paikallinen kansio** – molemmat listat kirjoitetaan suoraan valittuun kansioon.
+- Muu selain/puhelin: **Käytä sovelluksen paikallista muistia** ja vie kopiot erikseen **Vie XLSX** -painikkeella.
+
+Valitse lisäksi alkuperäiset kaksi listapohjaa: tuntilistaan **Tuntilista Teemu.xlsx** ja Pamarkiin yrityksen alkuperäinen Pamark-pohja. Kun painat **Luo puuttuvat listat ja aloita**, sovellus luo automaattisesti puuttuvan tämän kuukauden tuntilistan ja kuluvan puolikuukauden Pamark-listan. Asetukset → **Tallennuskansio ja listapohjat** vaihtaa tallennuspaikan myöhemmin.
 
 ## Päivittäinen käyttö
 
-1. Kirjoita oma nimi kerran. Valitse **Tunnit** tai **Pamark ajolista**.
+1. Valitse **Tunnit** tai **Pamark ajolista**.
 2. Täytä kysymykset. Päivämäärä on automaattinen ja muutettavissa. Voit jatkaa myöhemmin ja vaihtaa listojen välillä.
-3. Valitse ensimmäisellä tallennuskerralla alkuperäinen XLSX-pohja: tuntilistaan **Tuntilista Teemu.xlsx**, Pamarkiin yrityksen alkuperäinen Pamark-pohja. Pohjat jäävät paikalliseen muistiin.
-4. Paina **Tallenna puhelimeen**. Tämä ei ota Google-yhteyttä eikä lähetä tietoja verkkoon.
-5. Avaa **Tallennetut listat**, kun haluat viedä XLSX-kopion puhelimen Tiedostot-sovellukseen tai latauksiin. Sovellusmuisti ja Tiedostot-kansio ovat eri asioita.
-6. Päivän lopussa avaa **Synkronoi Pamark Driveen** ja paina **Synkronoi**. Tuntilistaa ei lähetetä Driveen.
+3. Paina **Tallenna puhelimeen**. Tämä ei ota Google-yhteyttä eikä lähetä tietoja verkkoon.
+4. Avaa **Tallennetut listat**, kun haluat viedä XLSX-kopion puhelimen Tiedostot-sovellukseen tai latauksiin. Sovellusmuisti ja Tiedostot-kansio ovat eri asioita.
+5. Päivän lopussa avaa **Synkronoi Pamark Driveen** ja paina **Synkronoi**. Tuntilistaa ei lähetetä Driveen.
 
 Esimerkit: 15.9.2026 → `Pamark ajolista syyskuu 1-2 2026.xlsx`; 21.9.2026 → `Pamark ajolista syyskuu 2-2 2026.xlsx`. Jakso määräytyy kirjauksen päivämäärästä.
+
+## Tiedostojen nimeäminen
+
+- **Tuntilista:** `Tuntilista_<etunimi><kk><vvv>.xlsx`, esimerkiksi `Tuntilista_Teemu0926.xlsx`. Vanhan version samalla koko nimellä tallennettu tuntilista siirretään uuden nimen käyttöön kopiona; vanhaa tiedostoa ei poisteta. Jos saman etunimen tiedosto kuuluu eri kuljettajalle, sitä ei korvata.
+- **Pamark ajolista:** `Pamark ajolista <kuukausi> <jakso>-2 <vuosi>.xlsx`, jossa jakso on **1** päivinä 1.–15. ja **2** päivinä 16.–kuun loppu. Esimerkiksi 23.9.2026 → `Pamark ajolista syyskuu 2-2 2026.xlsx`.
 
 ## Google-yhteys kerran laitetta kohti
 
@@ -56,12 +69,33 @@ Puuttuva jakson tiedosto luodaan automaattisesti. Drivessä tiedostonimi ei ole 
 
 Katkon jälkeen odottavat kirjaukset lähetetään uudella Synkronoi-painalluksella. Virheessä niitä ei merkitä onnistuneiksi. Lopuksi sovellus lataa tiedoston uudelleen ja tarkistaa oman kirjauksen. Paikallinen XLSX sisältää omat paikalliset kirjaukset; Drivessä oleva yhteinen XLSX sisältää myös muiden kirjaukset.
 
+## Ajoneuvot
+
+Asetukset → **Ajoneuvot** → rekisterinumeropainike avaa auton kulutus- ja päästötiedot. Lähde: käyttäjän toimittama Pamark ajolista syyskuu 1-2 2026.xlsx, auton otsikkorivin E-, G- ja I-solut.
+
+| Auto | Kulutus l / 100 km | CO₂-kerroin g/ltr (pohjan yksikkö) |
+|---|---:|---:|
+| JTS-790 | 24 | 0,13 |
+| LLT-265 | 27 | 1,2 |
+| FOM-995 | 12 | 0,13 |
+| ZLC-613 | 27 | 0,13 |
+| MTY-164 | 27 | 0,13 |
+| ENR-210 | 27 | 1,2 |
+
+Arvot ja yksikkö on kopioitu mallista; ne eivät ole ulkopuolisesta lähteestä varmennettuja päästökertoimia. Hintatietoja ei käsitellä.
+
+**Tallenna asetukset ja päivitä paikallinen lista** tallentaa auton arvot ja päivittää valitun päivämäärän jakson paikallisen Pamark-listan. Puuttuva lista luodaan. Uudet jaksot saavat tallennetut arvot automaattisesti.
+
+**Päivitä tämän auton tiedot Drive-ajolistaan** päivittää vain valitun auton kulutus- ja päästötiedot ja niiden kaavat jo olemassa olevaan jaettuun tiedostoon. Se käyttää version tarkistusta ja tarkistaa päivityksen lopuksi. Google-yhteys ja kansio valitaan tavallisessa Synkronoi Pamark Driveen -kohdassa. Normaali ajokirjausten synkronointi jättää olemassa olevan jaetun tiedoston ajoneuvoasetukset ennalleen. Näin toisen kuljettajan vanhat asetukset eivät palaudu joka päivä.
+
+Päivityksen jälkeen sulje sovelluksen vanhat välilehdet/ikkunat ja avaa se uudelleen verkossa. Älä tyhjennä sivuston tallennettuja tietoja.
+
 ## Hyvä tietää
 
 - Säilytä kopio tärkeistä XLSX-listoista myös Tiedostot-sovelluksessa. Selaimen tietojen poistaminen tai sovelluksen poisto voi poistaa paikallisen muistin. Sovellus pyytää pysyvää tallennustilaa, mutta selain päättää sen myöntämisestä.
 - Tiedot eivät siirry automaattisesti vanhasta chatgpt.site-osoitteesta GitHub-osoitteeseen.
 - Synkronoitavan tiedoston muoto on XLSX. Googlen oma natiivi Sheets-tiedosto on eri tiedostotyyppi, eikä tätä korvata.
-- Alkuperäisiä taulukkopohjia ei muuteta. Kulutus- ja hintakentät ovat edelleen paikallisia asetuksia; tässä versiossa ne eivät muuta taulukon laskentaa.
+- Alkuperäisiä taulukkopohjia ei muuteta.
 - Koonti, alkuperäisten pohjien säilyminen ja synkronoinnin ristiriitatilanteet testataan paikallisesti. Oikea Google-yhteys sekä Android/iPhone-asennus on vielä varmistettava omilla laitteilla ja tunnuksilla.
 
 ## Lähdekoodi kehittäjälle

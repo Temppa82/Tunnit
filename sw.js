@@ -1,4 +1,4 @@
-const BASE=new URL('./',self.location.href),PREFIX='ajolista-local-'+BASE.pathname+'-',CACHE=PREFIX+"b551ff63596f1cb1",URLS=["icon-192.png","icon-512.png","index-CNRsrNap.js","index-Cux6jbdz.css","index.html","manifest.webmanifest"].map(p=>new URL(p,BASE).href);
+const BASE=new URL('./',self.location.href),PREFIX='ajolista-local-'+BASE.pathname+'-',CACHE=PREFIX+"4b30da6454259a08",URLS=["icon-192.png","icon-512.png","index-BBVtZk1X.css","index-DubFOEO5.js","index.html","manifest.webmanifest"].map(p=>new URL(p,BASE).href);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(URLS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith(PREFIX)&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==BASE.origin||!url.pathname.startsWith(BASE.pathname))return;
